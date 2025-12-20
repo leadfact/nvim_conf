@@ -11,6 +11,14 @@ opt.splitbelow = true
 -- use the system clipboard
 opt.clipboard = 'unnamedplus'
 
+-- auto-reload files changed outside nvim
+opt.autoread = true
+opt.updatetime = 100
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold' }, {
+	pattern = '*',
+	command = 'checktime',
+})
+
 -- Disable auto-completion of files at the end (отключаем автодополнение файлов в конце)
 opt.fixeol = false
 
@@ -33,6 +41,7 @@ opt.termguicolors = true            --  24-bit RGB colors
 
 g.translate_source = 'ru'
 g.translate_target = 'en'
+g.fugitive_gitlab_domains = { 'git.itcrew.info' }
 
 -- Запоминает где nvim последний раз редактировал файл
 vim.cmd [[autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif

@@ -1,0 +1,24 @@
+# Lazy.nvim
+lazy-lock.json
+
+# LSP logs
+*.log
+**/neovide_backtraces.log
+
+# Spell files
+spell/*.spl
+spell/*.sug
+
+# Plugin directories (они устанавливаются автоматически)
+plugin/
+
+# macOS
+.DS_Store
+
+# Vim swap files
+*.swp
+*.swo
+*~
+
+# State files
+.luarc.json

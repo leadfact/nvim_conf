@@ -1,59 +1,318 @@
-# My nvim lua config  
+# 🚀 Neovim Configuration
 
-![Your Alt Text](./misc/nvim_example "Your Alt Text")  
+Современная конфигурация Neovim на Lua с использованием lazy.nvim для macOS.
 
-## Plugin manager  
-- packer.nvim
+![Neovim](./misc/nvim_example)
 
-## Color scheme
-- navarasu/onedark.nvim  
+## ✨ Особенности
 
-## Font 
-- FiraCode Nerd Font  
+- 🔌 **Lazy.nvim** - быстрый и современный менеджер плагинов
+- 🎨 **OneDark** - красивая темная тема
+- 📝 **LSP** - полная поддержка Language Server Protocol
+- 🔍 **Telescope** - мощный поиск и навигация
+- 🌳 **Neo-tree** - файловый менеджер
+- 💡 **Автодополнение** - nvim-cmp с множеством источников
+- 🎯 **Treesitter** - продвинутая подсветка синтаксиса
+- 🔧 **Mason** - простая установка LSP серверов
 
-## Plugins
-- ray-x/go.nvim
-- lukas-reineke/indent-blankline.nvim
-- kylechui/nvim-surround
-- wbthomason/packer.nvim
-- neovim/nvim-lspconfig
-- powerman/vim-plugin-ruscmd
-- onsails/lspkind-nvim
-- williamboman/mason.nvim
-- folke/trouble.nvim
-- nvim-lualine/lualine.nvim
-- hrsh7th/nvim-cmp
-- nvim-neo-tree/neo-tree.nvim
-- numToStr/Comment.nvim
-- nvim-treesitter/nvim-treesitter
-- nvim-telescope/telescope.nvim
-- akinsho/bufferline.nvim
-- windwp/nvim-autopairs
-- lervag/vimtex
-- navarasu/onedark.nvim
-- Exafunction/codeium.vim  
+## 📋 Требования
 
-## Hotkeys
-- `K` - Hover for object
-- `gf` - Format document
-- `ga` - Code actions
-- `gR` - Rename object
-- `<leader>v` - Toggle NvimTree
-- `gd` - LSP definitions
-- `<leader>p` - View old files
-- `<leader>o` - Search files
-- `<leader>b` - Git branches
-- `<leader>f` - Search string
-- `<leader>q` - View buffers
-- `<leader>c` - Close buffer
-- `<leader>[` - Previous buffer
-- `<leader>]` - Next buffer
-- `<leader>x` - Toggle LSP trouble menu
-- `gr` - LSP references
-- `<leader>l` - Format
-- `C-g` - Accept completion
-- `C-e` - Cycle completions forward
-- `C-q` - Cycle completions backward
-- `C-x` - Clear completion
-- `Oc` - Open Codeium chat
-- `gor` - Go run command
+- **macOS** (10.15 или выше)
+- **Neovim** >= 0.9.0
+- **Git**
+- **Node.js** (опционально, для некоторых LSP)
+- **Python 3** (опционально, для некоторых LSP)
+
+## 🔧 Быстрая установка
+
+### Автоматическая установка (рекомендуется)
+
+```bash
+# Клонировать репозиторий во временную директорию
+git clone https://github.com/YOUR_USERNAME/nvim-config.git /tmp/nvim-config
+
+# Запустить скрипт установки
+cd /tmp/nvim-config
+./install.sh
+```
+
+Скрипт автоматически:
+- ✅ Проверит и установит зависимости
+- ✅ Создаст бэкап существующей конфигурации
+- ✅ Установит новую конфигурацию
+- ✅ Установит все плагины
+- ✅ Настроит LSP серверы
+
+### Ручная установка
+
+```bash
+# Создать бэкап текущей конфигурации (если есть)
+mv ~/.config/nvim ~/.config/nvim.backup
+
+# Клонировать конфигурацию
+git clone https://github.com/YOUR_USERNAME/nvim-config.git ~/.config/nvim
+
+# Удалить git-файлы
+rm -rf ~/.config/nvim/.git
+
+# Запустить Neovim - плагины установятся автоматически
+nvim
+```
+
+## 📦 Установленные плагины
+
+### 🔌 Менеджер плагинов
+- **lazy.nvim** - современный менеджер плагинов
+
+### 🎨 UI/UX
+- **onedark.nvim** - цветовая схема
+- **lualine.nvim** - красивая statusline
+- **bufferline.nvim** - вкладки для буферов
+- **neo-tree.nvim** - файловый менеджер
+- **indent-blankline.nvim** - отступы
+- **nvim-web-devicons** - иконки
+
+### 💻 LSP & Автодополнение
+- **nvim-lspconfig** - конфигурация LSP
+- **mason.nvim** - менеджер LSP серверов
+- **mason-lspconfig.nvim** - интеграция Mason и LSP
+- **none-ls.nvim** - форматирование и диагностика
+- **nvim-cmp** - автодополнение
+- **LuaSnip** - сниппеты
+- **lspkind-nvim** - иконки для автодополнения
+- **trouble.nvim** - красивое отображение ошибок
+
+### 🔍 Навигация
+- **telescope.nvim** - поиск файлов, строк и многое другое
+- **project.nvim** - управление проектами
+
+### ✏️ Редактирование
+- **nvim-treesitter** - подсветка синтаксиса
+- **Comment.nvim** - комментирование кода
+- **nvim-surround** - работа со скобками/кавычками
+- **nvim-autopairs** - автоматические парные скобки
+
+### 🔧 Языки программирования
+- **go.nvim** - поддержка Go
+- **vimtex** - поддержка LaTeX
+
+### 🌍 Утилиты
+- **vim-plugin-ruscmd** - поддержка русской раскладки
+
+## 🎮 Горячие клавиши
+
+> **Leader** - клавиша Space (пробел)
+
+### 📁 Файлы и навигация
+
+| Комбинация | Действие |
+|------------|----------|
+| `<leader>v` | Открыть/закрыть файловое дерево |
+| `<leader>o` | Поиск файлов (git files) |
+| `<leader>p` | Недавние файлы |
+| `<leader>f` | Поиск по содержимому файлов |
+| `<leader>q` | Список открытых буферов |
+
+### 📝 Буферы
+
+| Комбинация | Действие |
+|------------|----------|
+| `<leader>c` | Закрыть текущий буфер |
+| `<leader>[` | Предыдущий буфер |
+| `<leader>]` | Следующий буфер |
+
+### 🔧 LSP
+
+| Комбинация | Действие |
+|------------|----------|
+| `K` | Показать документацию |
+| `gd` | Перейти к определению |
+| `gr` | Показать все ссылки |
+| `gf` | Форматировать код |
+| `ga` | Действия с кодом |
+| `gR` | Переименовать символ |
+| `<leader>x` | Открыть список проблем |
+| `<leader>l` | Форматировать файл |
+
+### 💡 Автодополнение
+
+| Комбинация | Действие |
+|------------|----------|
+| `<C-Space>` | Открыть меню автодополнения |
+| `<C-y>` | Принять выбранное дополнение |
+| `<C-e>` | Закрыть меню |
+| `<C-n>` | Следующий пункт |
+| `<C-p>` | Предыдущий пункт |
+
+### 📝 Комментирование
+
+| Комбинация | Действие |
+|------------|----------|
+| `gcc` | Закомментировать/раскомментировать строку |
+| `gbc` | Блочное комментирование |
+| `gc` (visual) | Закомментировать выделенное |
+
+### 🏃 Навигация по коду
+
+| Комбинация | Действие |
+|------------|----------|
+| `<C-k>` | Переместиться на 3 строки вверх |
+| `<C-j>` | Переместиться на 3 строки вниз |
+| `<C-e>` | Переместиться на 10 строк вверх |
+| `<C-b>` | Переместиться на 10 строк вниз |
+| `<A-j>` | Переместить строку вниз |
+| `<A-k>` | Переместить строку вверх |
+| `<C-y>` | Перейти в конец файла в режим вставки |
+
+### 🎯 Go (для разработки на Go)
+
+| Комбинация | Действие |
+|------------|----------|
+| `gor` | Запустить текущий файл Go |
+
+## ⚙️ LSP серверы
+
+Автоматически устанавливаются через Mason:
+
+- **lua_ls** - Lua
+- **ts_ls** - TypeScript/JavaScript
+- **emmet_ls** - HTML/CSS
+- **pyright** - Python
+- **volar** - Vue.js
+- **gopls** - Go
+
+### Установка дополнительных серверов
+
+```vim
+:Mason
+```
+
+Выберите сервер и нажмите `i` для установки.
+
+## 🛠️ Полезные команды
+
+### Lazy (плагины)
+
+```vim
+:Lazy                " Открыть панель управления плагинами
+:Lazy sync           " Обновить/установить плагины
+:Lazy clean          " Удалить неиспользуемые плагины
+:Lazy update         " Обновить все плагины
+```
+
+### Mason (LSP)
+
+```vim
+:Mason               " Открыть панель управления LSP
+:MasonUpdate         " Обновить Mason
+:MasonInstall <lsp>  " Установить LSP сервер
+```
+
+### Проверка здоровья
+
+```vim
+:checkhealth         " Проверить конфигурацию
+```
+
+## 📂 Структура проекта
+
+```
+~/.config/nvim/
+├── init.lua                    # Главный файл конфигурации
+├── lua/
+│   ├── lazy-setup.lua         # Инициализация lazy.nvim
+│   ├── base/                  # Базовые настройки Neovim
+│   │   ├── search.lua
+│   │   ├── tabs.lua
+│   │   └── other.lua
+│   ├── keys/                  # Горячие клавиши
+│   │   ├── alias.lua
+│   │   └── plugins.lua
+│   └── plugins/               # Конфигурации плагинов
+│       ├── specs/             # Спецификации плагинов для lazy.nvim
+│       │   ├── lsp.lua        # LSP плагины
+│       │   ├── ui.lua         # UI плагины
+│       │   ├── editing.lua    # Редактирование
+│       │   ├── navigation.lua # Навигация
+│       │   ├── language.lua   # Языки
+│       │   ├── theme.lua      # Тема
+│       │   └── tools.lua      # Утилиты
+│       ├── mason.lua          # Конфигурация Mason
+│       ├── cmp.lua            # Автодополнение
+│       ├── lualine.lua        # Statusline
+│       ├── neotree.lua        # Файловый менеджер
+│       ├── treesitter.lua     # Treesitter
+│       └── ...
+└── install.sh                 # Скрипт установки
+```
+
+## 🎨 Шрифт
+
+Рекомендуется использовать **FiraCode Nerd Font** для корректного отображения иконок.
+
+### Установка шрифта
+
+```bash
+brew tap homebrew/cask-fonts
+brew install --cask font-fira-code-nerd-font
+```
+
+После установки настройте терминал на использование этого шрифта.
+
+## 🔄 Обновление конфигурации
+
+```bash
+cd ~/.config/nvim
+git pull origin master
+nvim
+:Lazy sync
+```
+
+## 🐛 Решение проблем
+
+### Плагины не устанавливаются
+
+```vim
+:Lazy sync
+```
+
+### LSP не работает
+
+```vim
+:checkhealth lsp
+:Mason
+```
+
+### Ошибки при запуске
+
+```vim
+:checkhealth
+```
+
+### Полная переустановка
+
+```bash
+# Удалить данные
+rm -rf ~/.local/share/nvim
+rm -rf ~/.local/state/nvim
+rm -rf ~/.cache/nvim
+
+# Запустить Neovim
+nvim
+```
+
+## 🤝 Вклад
+
+Приветствуются любые улучшения! Создайте issue или pull request.
+
+## 📄 Лицензия
+
+MIT License - используйте свободно!
+
+## 📸 Скриншоты
+
+_Добавьте свои скриншоты в папку misc/_
+
+---
+
+**Сделано с ❤️ для продуктивной разработки**
