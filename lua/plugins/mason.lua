@@ -1,6 +1,7 @@
 local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 local lspconfig = require("lspconfig")
+local lsp_util = require("lspconfig.util")
 
 mason.setup({
 	ui = {
@@ -18,13 +19,19 @@ mason_lspconfig.setup({
 		"ts_ls", -- LSP for Typescript and Javascript (renamed from tsserver)
 		"emmet_ls", -- LSP for Emmet (Vue, HTML, CSS)
 		"pyright", -- LSP for Python
-		"volar", -- LSP for Vue
 		"gopls", -- LSP for Go
+		"templ", -- LSP for Templ templates
 	},
 	handlers = {
 		-- Default handler - setup every needed language server in lspconfig
 		function(server_name)
 			lspconfig[server_name].setup {}
+		end,
+		["templ"] = function()
+			lspconfig.templ.setup({
+				filetypes = { "templ" },
+				root_dir = lsp_util.root_pattern("go.mod", ".git"),
+			})
 		end,
 	}
 })

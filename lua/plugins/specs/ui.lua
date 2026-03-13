@@ -39,5 +39,5 @@ return {
 		config = function()
 			require('plugins/indentline')
 		end,
-	},
+	}
 }

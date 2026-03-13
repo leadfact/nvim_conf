@@ -46,6 +46,13 @@ g.fugitive_gitlab_domains = { 'git.itcrew.info' }
 -- Запоминает где nvim последний раз редактировал файл
 vim.cmd [[autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 ]]
+
+vim.filetype.add({
+	extension = {
+		templ = "templ",
+	},
+})
+
 -- Подсвечивает на доли секунды скопированную часть текста
 vim.api.nvim_exec([[
 augroup YankHighlight
