@@ -3,7 +3,10 @@ require("lspsaga").setup({
 		enable = false,
 	},
 	symbol_in_winbar = {
-		enable = false,
+		enable = true,
+		show_file = false,
+		hide_keyword = true,
+		separator = " > ",
 	},
 	ui = {
 		border = "rounded",
