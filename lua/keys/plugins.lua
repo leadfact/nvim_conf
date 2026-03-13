@@ -1,20 +1,26 @@
 require('keys/alias')
 
 -- LSP (все горячие клавиши начинаются с g), кроме ховера
-nm('K', '<cmd>lua vim.lsp.buf.hover()<CR>')        -- Ховер для объекта
+nm('K', '<cmd>Lspsaga hover_doc<CR>')              -- Ховер для объекта
 nm('gf', '<cmd>lua vim.lsp.buf.format()<CR>')      -- Форматировать документ
-nm('ga', '<cmd>lua vim.lsp.buf.code_action()<CR>') -- Действия с кодом
-nm('gR', '<cmd>lua vim.lsp.buf.rename()<CR>')      -- Переименовать объект
+nm('ga', '<cmd>Lspsaga code_action<CR>')           -- Действия с кодом
+nm('gR', '<cmd>Lspsaga rename<CR>')                -- Переименовать объект
+nm('gs', '<cmd>Lspsaga finder<CR>')                -- Найти определения, ссылки и имплементации
+nm('gp', '<cmd>Lspsaga peek_definition<CR>')       -- Посмотреть определение
+nm(']d', '<cmd>Lspsaga diagnostic_jump_next<CR>')  -- Следующая диагностика
+nm('[d', '<cmd>Lspsaga diagnostic_jump_prev<CR>')  -- Предыдущая диагностика
+nm('gl', '<cmd>Lspsaga show_line_diagnostics<CR>') -- Диагностика текущей строки
+nm('<leader>o', '<cmd>Lspsaga outline<CR>')        -- Символы текущего файла
 
 -- Отркыть NvimTree
 nm('<leader>v', '<cmd>Neotree toggle<CR>')
 
 -- Telescope
-nm('gd', '<cmd>Telescope lsp_definitions<CR>')     -- Объявления в LSP
+nm('gd', '<cmd>Lspsaga goto_definition<CR>')       -- Объявления в LSP
 nm('gi', '<cmd>Telescope lsp_implementations<CR>')     -- Объявления в LSP
-nm('gr', '<cmd>Telescope lsp_references<CR>')     -- Объявления в LSP
+nm('gr', '<cmd>Lspsaga finder ref<CR>')            -- Ссылки в LSP
 nm('<leader>p', '<cmd>Telescope oldfiles<CR>')     -- Просмотр недавних файлов
-nm('<leader>o', '<cmd>Telescope git_files<CR>')    -- Поиск файлов
+nm('<leader>P', '<cmd>Telescope git_files<CR>')    -- Поиск файлов
 nm('<leader>b', '<cmd>Telescope git_branches<CR>') -- Ветки в Git
 nm('<leader>f', '<cmd>Telescope live_grep<CR>')    -- Поиск строки
 nm('<leader>q', '<cmd>Telescope buffers<CR>')  	   -- Буфферы

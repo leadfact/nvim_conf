@@ -34,6 +34,19 @@ return {
 		end,
 	},
 
+	-- Улучшенный UI для LSP
+	{
+		"nvimdev/lspsaga.nvim",
+		event = "LspAttach",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		config = function()
+			require("plugins/lspsaga")
+		end,
+	},
+
 	-- Автодополнение
 	{
 		"hrsh7th/nvim-cmp",
