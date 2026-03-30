@@ -25,6 +25,11 @@ nm('<leader>b', '<cmd>Telescope git_branches<CR>') -- Ветки в Git
 nm('<leader>f', '<cmd>Telescope live_grep<CR>')    -- Поиск строки
 nm('<leader>q', '<cmd>Telescope buffers<CR>')  	   -- Буфферы
 
+-- Git
+nm('<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<CR>') -- Вкл/выкл blame для текущей строки
+nm('<leader>gB', '<cmd>Git blame<CR>')                            -- Полный git blame через fugitive
+nm('<leader>gp', '<cmd>Gitsigns preview_hunk<CR>')               -- Просмотр изменений в hunk
+
 -- BufferLine
 -- nm('<leader>c', '<cmd>bd<CR>')                  -- Закрыть буффер
 nm('<leader>c', '<cmd>BufferLinePickClose<CR>') -- Выбрать буффер который надо закрыть 
