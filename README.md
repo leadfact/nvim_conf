@@ -14,6 +14,7 @@
 - 💡 **Автодополнение** - nvim-cmp с множеством источников
 - 🎯 **Treesitter** - продвинутая подсветка синтаксиса
 - 🔧 **Mason** - простая установка LSP серверов
+- 🧠 **gopls** - отдельная настройка Go LSP с улучшенной навигацией по типам
 
 ## 📋 Требования
 
@@ -132,6 +133,11 @@ nvim
 | `<leader>gb` | Включить/выключить blame для текущей строки |
 | `<leader>gB` | Открыть полный `git blame` через Fugitive |
 | `<leader>gp` | Показать изменения текущего hunk |
+| `<leader>ghs` | Добавить текущий hunk в stage |
+| `<leader>ghr` | Откатить текущий hunk |
+| `<leader>gn` | Перейти к следующему hunk |
+| `<leader>gN` | Перейти к предыдущему hunk |
+| `<leader>gtd` | Показать/скрыть удаленные строки |
 
 ### 🔧 LSP
 
@@ -140,6 +146,8 @@ nvim
 | `K` | Показать hover-документацию через Lspsaga |
 | `gd` | Перейти к определению |
 | `gp` | Открыть peek definition |
+| `gt` | Перейти к определению типа |
+| `gT` | Открыть peek type definition |
 | `gr` | Показать ссылки через finder |
 | `gs` | Открыть finder определений/ссылок/имплементаций |
 | `gi` | Показать имплементации |
@@ -190,6 +198,13 @@ nvim
 |------------|----------|
 | `gor` | Запустить текущий файл Go |
 
+Для `gopls` дополнительно включены:
+- `usePlaceholders = true`
+- `completeUnimported = true`
+- `staticcheck = true`
+- `gofumpt = true`
+- `linksInHover = true`
+
 ## ⚙️ LSP серверы
 
 Автоматически устанавливаются через Mason:
@@ -226,6 +241,12 @@ nvim
 :Git blame          " Полный git blame для текущего файла
 ```
 
+### Форматирование
+
+- Go форматируется через `gopls`
+- Python форматируется через `black` (`none-ls`)
+- JS / TS / Vue / HTML / CSS / JSON / Markdown форматируются через `prettier` (`none-ls`)
+
 ### Mason (LSP)
 
 ```vim
@@ -247,6 +268,7 @@ nvim
 ├── init.lua                    # Главный файл конфигурации
 ├── lua/
 │   ├── lazy-setup.lua         # Инициализация lazy.nvim
+│   ├── autocmds.lua           # Автокоманды Neovim
 │   ├── base/                  # Базовые настройки Neovim
 │   │   ├── search.lua
 │   │   ├── tabs.lua
@@ -254,6 +276,8 @@ nvim
 │   ├── keys/                  # Горячие клавиши
 │   │   ├── alias.lua
 │   │   └── plugins.lua
+│   ├── lsp/                   # LSP-логика
+│   │   └── on_attach.lua
 │   └── plugins/               # Конфигурации плагинов
 │       ├── specs/             # Спецификации плагинов для lazy.nvim
 │       │   ├── lsp.lua        # LSP плагины
@@ -263,7 +287,8 @@ nvim
 │       │   ├── language.lua   # Языки
 │       │   ├── theme.lua      # Тема
 │       │   └── tools.lua      # Утилиты
-│       ├── mason.lua          # Конфигурация Mason
+│       ├── gitsigns.lua       # Git hunks и blame
+│       ├── mason.lua          # Конфигурация Mason, LSP и none-ls
 │       ├── cmp.lua            # Автодополнение
 │       ├── lualine.lua        # Statusline
 │       ├── neotree.lua        # Файловый менеджер

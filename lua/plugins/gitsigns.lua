@@ -4,6 +4,9 @@ require("gitsigns").setup({
 		delay = 300,
 		ignore_whitespace = false,
 	},
+	preview_config = {
+		border = "rounded",
+	},
 	signs = {
 		add = { text = "+" },
 		change = { text = "~" },

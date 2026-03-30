@@ -1,24 +1,9 @@
 require('keys/alias')
 
--- LSP (все горячие клавиши начинаются с g), кроме ховера
-nm('K', '<cmd>Lspsaga hover_doc<CR>')              -- Ховер для объекта
-nm('gf', '<cmd>lua vim.lsp.buf.format()<CR>')      -- Форматировать документ
-nm('ga', '<cmd>Lspsaga code_action<CR>')           -- Действия с кодом
-nm('gR', '<cmd>Lspsaga rename<CR>')                -- Переименовать объект
-nm('gs', '<cmd>Lspsaga finder<CR>')                -- Найти определения, ссылки и имплементации
-nm('gp', '<cmd>Lspsaga peek_definition<CR>')       -- Посмотреть определение
-nm(']d', '<cmd>Lspsaga diagnostic_jump_next<CR>')  -- Следующая диагностика
-nm('[d', '<cmd>Lspsaga diagnostic_jump_prev<CR>')  -- Предыдущая диагностика
-nm('gl', '<cmd>Lspsaga show_line_diagnostics<CR>') -- Диагностика текущей строки
-nm('<leader>o', '<cmd>Lspsaga outline<CR>')        -- Символы текущего файла
-
 -- Отркыть NvimTree
 nm('<leader>v', '<cmd>Neotree toggle<CR>')
 
 -- Telescope
-nm('gd', '<cmd>Lspsaga goto_definition<CR>')       -- Объявления в LSP
-nm('gi', '<cmd>Telescope lsp_implementations<CR>')     -- Объявления в LSP
-nm('gr', '<cmd>Lspsaga finder ref<CR>')            -- Ссылки в LSP
 nm('<leader>p', '<cmd>Telescope oldfiles<CR>')     -- Просмотр недавних файлов
 nm('<leader>P', '<cmd>Telescope git_files<CR>')    -- Поиск файлов
 nm('<leader>b', '<cmd>Telescope git_branches<CR>') -- Ветки в Git
@@ -29,6 +14,11 @@ nm('<leader>q', '<cmd>Telescope buffers<CR>')  	   -- Буфферы
 nm('<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<CR>') -- Вкл/выкл blame для текущей строки
 nm('<leader>gB', '<cmd>Git blame<CR>')                            -- Полный git blame через fugitive
 nm('<leader>gp', '<cmd>Gitsigns preview_hunk<CR>')               -- Просмотр изменений в hunk
+nm('<leader>ghs', '<cmd>Gitsigns stage_hunk<CR>')                -- Добавить hunk в stage
+nm('<leader>ghr', '<cmd>Gitsigns reset_hunk<CR>')                -- Откатить hunk
+nm('<leader>gn', '<cmd>Gitsigns next_hunk<CR>')                  -- Следующий hunk
+nm('<leader>gN', '<cmd>Gitsigns prev_hunk<CR>')                  -- Предыдущий hunk
+nm('<leader>gtd', '<cmd>Gitsigns toggle_deleted<CR>')            -- Показать удаленные строки
 
 -- BufferLine
 -- nm('<leader>c', '<cmd>bd<CR>')                  -- Закрыть буффер
