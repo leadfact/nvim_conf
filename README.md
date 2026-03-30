@@ -19,7 +19,7 @@
 ## 📋 Требования
 
 - **macOS** (10.15 или выше)
-- **Neovim** >= 0.9.0
+- **Neovim** >= 0.11.0
 - **Git**
 - **Node.js** (опционально, для некоторых LSP)
 - **Python 3** (опционально, для некоторых LSP)
@@ -77,12 +77,11 @@ nvim
 - **nvim-lspconfig** - конфигурация LSP
 - **mason.nvim** - менеджер LSP серверов
 - **mason-lspconfig.nvim** - интеграция Mason и LSP
-- **none-ls.nvim** - форматирование и диагностика
+- **none-ls.nvim** - форматирование
 - **lspsaga.nvim** - UI для hover, diagnostics и навигации по LSP
 - **nvim-cmp** - автодополнение
 - **LuaSnip** - сниппеты
 - **lspkind-nvim** - иконки для автодополнения
-- **trouble.nvim** - красивое отображение ошибок
 
 ### 🔍 Навигация
 - **telescope.nvim** - поиск файлов, строк и многое другое
@@ -112,11 +111,12 @@ nvim
 | Комбинация | Действие |
 |------------|----------|
 | `<leader>e` | Открыть/закрыть файловое дерево |
-| `<leader>o` | Outline символов текущего файла |
 | `<leader>ff` | Поиск файлов |
 | `<leader>fr` | Недавние файлы |
 | `<leader>fg` | Поиск по содержимому файлов |
 | `<leader>fB` | Ветки в Git |
+| `<leader>fd` | Диагностика текущего буфера |
+| `<leader>fD` | Диагностика всего workspace |
 
 ### 📝 Буферы
 
@@ -159,6 +159,7 @@ nvim
 | `gl` | Показать диагностику текущей строки |
 | `[d` | Перейти к предыдущей диагностике |
 | `]d` | Перейти к следующей диагностике |
+| `<leader>o` | Outline символов текущего файла |
 
 ### 💡 Автодополнение
 
@@ -215,6 +216,11 @@ nvim
 - `gofumpt = true`
 - `linksInHover = true`
 
+Дополнительно:
+- inlay hints включаются автоматически, если сервер их поддерживает
+- форматирование на сохранение включено для Go, Python, JS/TS, Vue, HTML/CSS, JSON, YAML, Markdown и Templ
+- `vim.diagnostic` настроен нативно через Neovim, без `trouble.nvim`
+
 ## ⚙️ LSP серверы
 
 Автоматически устанавливаются через Mason:
@@ -223,8 +229,8 @@ nvim
 - **ts_ls** - TypeScript/JavaScript
 - **emmet_ls** - HTML/CSS
 - **pyright** - Python
-- **volar** - Vue.js
 - **gopls** - Go
+- **templ** - Templ
 
 ### Установка дополнительных серверов
 
@@ -257,6 +263,12 @@ nvim
 - Python форматируется через `black` (`none-ls`)
 - JS / TS / Vue / HTML / CSS / JSON / Markdown форматируются через `prettier` (`none-ls`)
 
+### Диагностика
+
+- Используется нативный `vim.diagnostic`
+- `gopls` отвечает за Go-диагностику
+- `none-ls` больше не публикует Go diagnostics, чтобы избежать гонок с удалёнными буферами
+
 ### Mason (LSP)
 
 ```vim
@@ -287,6 +299,8 @@ nvim
 │   │   ├── alias.lua
 │   │   └── plugins.lua
 │   ├── lsp/                   # LSP-логика
+│   │   ├── diagnostics.lua
+│   │   ├── format.lua
 │   │   └── on_attach.lua
 │   ├── utils/                 # Вспомогательные функции
 │   │   └── clipboard.lua

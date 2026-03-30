@@ -12,25 +12,13 @@ return {
 			{
 				"williamboman/mason-lspconfig.nvim",
 			},
-			-- none-ls для форматирования (замена устаревшего null-ls)
+			-- none-ls для форматирования
 			{
 				"nvimtools/none-ls.nvim",
-			},
-			{
-				"jay-babu/mason-null-ls.nvim",
 			},
 		},
 		config = function()
 			require('plugins/mason')
-		end,
-	},
-
-	-- Trouble - меню для отображения проблем LSP
-	{
-		"folke/trouble.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function()
-			require("trouble").setup {}
 		end,
 	},
 

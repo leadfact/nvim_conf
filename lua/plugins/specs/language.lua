@@ -7,9 +7,14 @@ return {
 			"ray-x/guihua.lua",
 		},
 		config = function()
-			require('go').setup {}
+			require('go').setup({
+				diagnostic = false,
+				gofmt = 'gopls',
+				goimports = 'gopls',
+				lsp_cfg = false,
+				lsp_gofumpt = false,
+			})
 		end,
-		event = { "CmdlineEnter" },
 		ft = { "go", 'gomod' },
 		build = ':lua require("go.install").update_all_sync()',
 	},

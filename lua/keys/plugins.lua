@@ -8,6 +8,8 @@ nm('<leader>ff', '<cmd>Telescope git_files<CR>')   -- Поиск файлов
 nm('<leader>fr', '<cmd>Telescope oldfiles<CR>')    -- Недавние файлы
 nm('<leader>fg', '<cmd>Telescope live_grep<CR>')   -- Поиск строки
 nm('<leader>fB', '<cmd>Telescope git_branches<CR>') -- Ветки в Git
+nm('<leader>fd', '<cmd>Telescope diagnostics bufnr=0<CR>') -- Диагностика текущего буфера
+nm('<leader>fD', '<cmd>Telescope diagnostics<CR>') -- Диагностика workspace
 
 -- Git
 nm('<leader>gs', '<cmd>Git<CR>')                                      -- Git status через fugitive

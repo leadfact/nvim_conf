@@ -7,21 +7,6 @@ local on_attach = require("lsp.on_attach").setup
 local capabilities = cmp_nvim_lsp.default_capabilities()
 local servers = { "lua_ls", "ts_ls", "emmet_ls", "pyright", "gopls", "templ" }
 
--- Guard against async diagnostic publishers racing with wiped buffers.
-if not vim.g._diagnostic_set_ignores_invalid_buf then
-	local diagnostic_set = vim.diagnostic.set
-
-	vim.diagnostic.set = function(namespace, bufnr, diagnostics, opts)
-		if type(bufnr) == "number" and bufnr > 0 and not vim.api.nvim_buf_is_valid(bufnr) then
-			return
-		end
-
-		return diagnostic_set(namespace, bufnr, diagnostics, opts)
-	end
-
-	vim.g._diagnostic_set_ignores_invalid_buf = true
-end
-
 mason.setup({
 	ui = {
 		icons = {
@@ -74,7 +59,7 @@ vim.lsp.config("templ", {
 
 vim.lsp.enable(servers)
 
--- none-ls для форматирования и диагностики
+-- none-ls для форматирования
 local null_ls = require("null-ls")
 
 null_ls.setup({
@@ -98,20 +83,5 @@ null_ls.setup({
 				"markdown",
 			},
 		}),
-		null_ls.builtins.diagnostics.golangci_lint.with({
-			filetypes = { "go" },
-		}),
 	},
 })
-
-local sign = function(opts)
-	vim.fn.sign_define(opts.name, {
-		texthl = opts.name,
-		text = opts.text,
-		numhl = ''
-	})
-end
-sign({ name = 'DiagnosticSignError', text = '✘' })
-sign({ name = 'DiagnosticSignWarn', text = '▲' })
-sign({ name = 'DiagnosticSignHint', text = '⚑' })
-sign({ name = 'DiagnosticSignInfo', text = '' })
