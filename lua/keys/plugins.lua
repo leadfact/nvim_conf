@@ -1,43 +1,41 @@
 require('keys/alias')
 
--- Отркыть NvimTree
-nm('<leader>v', '<cmd>Neotree toggle<CR>')
+-- Explorer
+nm('<leader>e', '<cmd>Neotree toggle<CR>')
 
--- Telescope
-nm('<leader>p', '<cmd>Telescope oldfiles<CR>')     -- Просмотр недавних файлов
-nm('<leader>P', '<cmd>Telescope git_files<CR>')    -- Поиск файлов
-nm('<leader>b', '<cmd>Telescope git_branches<CR>') -- Ветки в Git
-nm('<leader>f', '<cmd>Telescope live_grep<CR>')    -- Поиск строки
-nm('<leader>q', '<cmd>Telescope buffers<CR>')  	   -- Буфферы
+-- Find
+nm('<leader>ff', '<cmd>Telescope git_files<CR>')   -- Поиск файлов
+nm('<leader>fr', '<cmd>Telescope oldfiles<CR>')    -- Недавние файлы
+nm('<leader>fg', '<cmd>Telescope live_grep<CR>')   -- Поиск строки
+nm('<leader>fB', '<cmd>Telescope git_branches<CR>') -- Ветки в Git
 
 -- Git
+nm('<leader>gs', '<cmd>Git<CR>')                                      -- Git status через fugitive
 nm('<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<CR>') -- Вкл/выкл blame для текущей строки
 nm('<leader>gB', '<cmd>Git blame<CR>')                            -- Полный git blame через fugitive
 nm('<leader>gp', '<cmd>Gitsigns preview_hunk<CR>')               -- Просмотр изменений в hunk
-nm('<leader>ghs', '<cmd>Gitsigns stage_hunk<CR>')                -- Добавить hunk в stage
-nm('<leader>ghr', '<cmd>Gitsigns reset_hunk<CR>')                -- Откатить hunk
-nm('<leader>gn', '<cmd>Gitsigns next_hunk<CR>')                  -- Следующий hunk
-nm('<leader>gN', '<cmd>Gitsigns prev_hunk<CR>')                  -- Предыдущий hunk
-nm('<leader>gtd', '<cmd>Gitsigns toggle_deleted<CR>')            -- Показать удаленные строки
+nm('<leader>ga', '<cmd>Gitsigns stage_hunk<CR>')                 -- Добавить hunk в stage
+nm('<leader>gr', '<cmd>Gitsigns reset_hunk<CR>')                 -- Откатить hunk
+nm('<leader>gd', '<cmd>Gitsigns toggle_deleted<CR>')             -- Показать удаленные строки
+nm(']h', '<cmd>Gitsigns next_hunk<CR>')                          -- Следующий hunk
+nm('[h', '<cmd>Gitsigns prev_hunk<CR>')                          -- Предыдущий hunk
 
--- BufferLine
--- nm('<leader>c', '<cmd>bd<CR>')                  -- Закрыть буффер
-nm('<leader>c', '<cmd>BufferLinePickClose<CR>') -- Выбрать буффер который надо закрыть 
-nm('<leader>[', '<cmd>BufferLineCyclePrev<CR>') -- Перейти в предыдущий буффер
-nm('<leader>]', '<cmd>BufferLineCycleNext<CR>') -- Перейти в следующий буффер
+-- Buffers
+nm('<leader>bb', '<cmd>Telescope buffers<CR>')       -- Буферы
+nm('<leader>bd', '<cmd>BufferLinePickClose<CR>')     -- Выбрать буфер для закрытия
+nm('<leader>bp', '<cmd>BufferLineCyclePrev<CR>')     -- Предыдущий буфер
+nm('<leader>bn', '<cmd>BufferLineCycleNext<CR>')     -- Следующий буфер
 
 -- Go run coommand
 nm('gor', '<cmd>GoRun<CR>')
 
--- copy current file path with line number to system clipboard
-nm('<leader>wd', '<cmd>lua local file = vim.fn.expand("%:p"); local line = vim.fn.line("."); vim.fn.setreg("+", string.format("%s:%d", file, line))<CR>')
-im('<leader>wd', '<C-o>:lua local file = vim.fn.expand("%:p"); local line = vim.fn.line("."); vim.fn.setreg("+", string.format("%s:%d", file, line))<CR>')
--- copy current file path relative to repo root to system clipboard
-nm('<leader>wr', '<cmd>lua local root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]; local file = vim.fn.expand("%:p"); local rel = file; if root ~= nil and root ~= "" and file:sub(1, #root) == root then rel = file:sub(#root + 2); end; vim.fn.setreg("+", rel)<CR>')
-im('<leader>wr', '<cmd>lua local root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]; local file = vim.fn.expand("%:p"); local rel = file; if root ~= nil and root ~= "" and file:sub(1, #root) == root then rel = file:sub(#root + 2); end; vim.fn.setreg("+", rel)<CR>')
--- copy remote URL for current file + line to system clipboard (fugitive)
-nm('<leader>wg', '<cmd>lua local out = vim.fn.execute("silent .GBrowse!"); out = out:gsub("%s+$", ""); vim.fn.setreg("+", out)<CR>')
-im('<leader>wg', '<C-o>:lua local out = vim.fn.execute("silent .GBrowse!"); out = out:gsub("%s+$", ""); vim.fn.setreg("+", out)<CR>')
+-- Yank / Share
+nm('<leader>ya', '<cmd>lua require("utils.clipboard").copy_abs_path_with_line()<CR>') -- Скопировать абсолютный путь с номером строки
+im('<leader>ya', '<C-o>:lua require("utils.clipboard").copy_abs_path_with_line()<CR>')
+nm('<leader>yr', '<cmd>lua require("utils.clipboard").copy_repo_relative_path()<CR>') -- Скопировать путь относительно репозитория
+im('<leader>yr', '<C-o>:lua require("utils.clipboard").copy_repo_relative_path()<CR>')
+nm('<leader>yg', '<cmd>lua require("utils.clipboard").copy_remote_url()<CR>') -- Скопировать remote URL текущей строки
+im('<leader>yg', '<C-o>:lua require("utils.clipboard").copy_remote_url()<CR>')
 
 -- turn to insert mode at the end of file
 nm('<C-y>', 'G$o')

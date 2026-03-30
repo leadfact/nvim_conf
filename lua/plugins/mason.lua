@@ -1,11 +1,11 @@
 local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
-local lspconfig = require("lspconfig")
 local lsp_util = require("lspconfig.util")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local on_attach = require("lsp.on_attach").setup
 
 local capabilities = cmp_nvim_lsp.default_capabilities()
+local servers = { "lua_ls", "ts_ls", "emmet_ls", "pyright", "gopls", "templ" }
 
 -- Guard against async diagnostic publishers racing with wiped buffers.
 if not vim.g._diagnostic_set_ignores_invalid_buf then
@@ -41,39 +41,38 @@ mason_lspconfig.setup({
 		"gopls", -- LSP for Go
 		"templ", -- LSP for Templ templates
 	},
-	handlers = {
-		-- Default handler - setup every needed language server in lspconfig
-		function(server_name)
-			lspconfig[server_name].setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-			})
-		end,
-		["gopls"] = function()
-			lspconfig.gopls.setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-				settings = {
-					gopls = {
-						completeUnimported = true,
-						gofumpt = true,
-						linksInHover = true,
-						staticcheck = true,
-						usePlaceholders = true,
-					},
-				},
-			})
-		end,
-		["templ"] = function()
-			lspconfig.templ.setup({
-				capabilities = capabilities,
-				filetypes = { "templ" },
-				on_attach = on_attach,
-				root_dir = lsp_util.root_pattern("go.mod", ".git"),
-			})
-		end,
-	}
+	automatic_enable = false,
 })
+
+for _, server_name in ipairs(servers) do
+	vim.lsp.config(server_name, {
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+end
+
+vim.lsp.config("gopls", {
+	capabilities = capabilities,
+	on_attach = on_attach,
+	settings = {
+		gopls = {
+			completeUnimported = true,
+			gofumpt = true,
+			linksInHover = true,
+			staticcheck = true,
+			usePlaceholders = true,
+		},
+	},
+})
+
+vim.lsp.config("templ", {
+	capabilities = capabilities,
+	filetypes = { "templ" },
+	on_attach = on_attach,
+	root_dir = lsp_util.root_pattern("go.mod", ".git"),
+})
+
+vim.lsp.enable(servers)
 
 -- none-ls для форматирования и диагностики
 local null_ls = require("null-ls")
